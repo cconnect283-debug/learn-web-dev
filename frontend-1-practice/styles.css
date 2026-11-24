@@ -1,13 +1,866 @@
-/* Стили страницы.
-   Пишите здесь. */
+@font-face {
+  font-family: Manrope;
+  src: url("fonts/manrope.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
 
-* {
-  margin: 0;
-  padding: 0;
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/playfair-display.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+:root {
+  --ink: #211b17;
+  --night: #1f1915;
+  --white: #fff8ee;
+  --gold: #e5b883;
+  --bronze: #714825;
+  --umber: #533820;
+  --cream: #f6f0e7;
+  --paper: #fffcf7;
+  --tint: #f5e7d4;
+  --line: #ded2c3;
+  --dark-line: #47392d;
+  --muted: #65564a;
+  --dim: #aa9889;
+  --subdued: #867465;
+  --calendar-gap: 10px;
+}
+
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-body {
+.page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  font-family: sans-serif;
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 400 16px/1.5 Manrope, Arial, sans-serif;
+}
+
+.wrap {
+  width: min(1120px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 2;
+  top: 8px;
+  left: 8px;
+  padding: 8px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  transform: translateY(calc(-100% - 8px));
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 3px;
+}
+
+.masthead :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--gold);
+}
+
+/* Шапка и шаги записи */
+.masthead,
+.site-footer {
+  background: var(--night);
+  color: var(--white);
+}
+
+.masthead {
+  border-bottom: 1px solid var(--dark-line);
+}
+
+.masthead__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 436px) 181px;
+  align-items: center;
+  gap: 25px;
+  min-height: 73px;
+}
+
+.brand {
+  display: grid;
+  grid-template-columns: 24px auto;
+  align-items: center;
+  column-gap: 13px;
+  width: max-content;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.brand__mark {
+  width: 24px;
+  height: 24px;
+  color: var(--gold);
+}
+
+.brand__word {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 28px;
+  letter-spacing: 2.8px;
+}
+
+.brand__caption {
+  grid-column: 2;
+  color: var(--dim);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 2.1px;
+  text-transform: uppercase;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 28px 0 10px;
+  margin: 0;
+  list-style: none;
+}
+
+.site-nav__item,
+.masthead__phone {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.site-nav__link,
+.masthead__phone,
+.site-footer__phone,
+.brand--footer {
+  cursor: pointer;
+}
+
+.site-nav__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-nav__link:hover,
+.site-footer__phone:hover,
+.brand--footer:hover {
+  color: var(--gold);
+}
+
+.masthead__phone {
+  justify-self: end;
+  color: var(--gold);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.masthead__phone:hover {
+  color: var(--white);
+}
+
+.progress {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.progress__list {
+  display: grid;
+  grid-template-columns: 201fr 201fr 234fr 247fr 237fr;
+  align-items: center;
+  min-height: 73px;
+  padding: 0;
+  margin-block: 0;
+  list-style: none;
+}
+
+.progress__step {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  padding-right: 23px;
+  color: var(--muted);
+}
+
+.progress__step:last-child {
+  padding-right: 0;
+}
+
+.progress__step:not(:last-child)::after {
+  flex: 0 1 18px;
+  min-width: 9px;
+  height: 1px;
+  margin-left: auto;
+  background: var(--line);
+  content: "";
+}
+
+.progress__step--done,
+.progress__step[aria-current="step"] {
+  color: var(--ink);
+}
+
+.progress__badge {
+  display: grid;
+  flex: 0 0 30px;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--subdued);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.progress__step--done .progress__badge {
+  background: var(--tint);
+  border-color: var(--tint);
+  color: var(--bronze);
+}
+
+.progress__badge .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.progress__step[aria-current="step"] .progress__badge {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.progress__label {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+/* Основная сетка */
+.booking {
+  flex: 1 0 auto;
+}
+
+.booking__inner {
+  padding-block: 22px 28px;
+}
+
+.booking__title {
+  margin: 0 0 8px;
+  font: 400 43px/49px "Playfair Display", Georgia, serif;
+  letter-spacing: -.48px;
+}
+
+.booking__intro {
+  margin: 0 0 15px;
+  color: var(--muted);
+  line-height: 25px;
+}
+
+.schedule {
+  display: grid;
+  grid-template-columns: minmax(0, 636fr) minmax(0, 460fr);
+  gap: 23px 24px;
+}
+
+.panel {
+  min-width: 0;
+  min-height: 354px;
+  padding: 15px 21px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 31px;
+}
+
+.calendar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.calendar__arrows {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.month-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: var(--cream);
+  color: var(--bronze);
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.month-arrow:hover {
+  background: var(--tint);
+}
+
+.weekdays,
+.calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--calendar-gap);
+}
+
+.weekdays {
+  padding: 0;
+  margin: 13px 0 9px;
+  list-style: none;
+}
+
+.weekday {
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.calendar__days,
+.slots {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.calendar__days {
+  row-gap: 6px;
+}
+
+.day {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  padding: 0;
+  background: var(--cream);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.day--full {
+  border-color: #c8a482;
+}
+
+.day--muted {
+  background: transparent;
+  color: var(--subdued);
+  cursor: default;
+}
+
+.day:not(.day--muted):hover {
+  background: var(--tint);
+}
+
+.day:has(.choice:checked),
+.slot:has(.choice:checked) {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+.day:has(.choice:checked):hover,
+.slot:has(.choice:checked):hover {
+  background: var(--umber);
+}
+
+.day:has(.choice:focus-visible),
+.slot:has(.choice:focus-visible) {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+
+.calendar-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 42px;
+  padding: 10px 0 0;
+  margin: 10px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.calendar-key__item {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.calendar-key__sample {
+  flex: 0 0 9px;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #a68464;
+  border-radius: 3px;
+}
+
+.calendar-key__sample--selected {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* Свободное, выбранное и занятое время */
+.availability__head {
+  padding-bottom: 10px;
+  margin-bottom: 23px;
+  border-bottom: 1px solid var(--line);
+}
+
+.availability__date {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.availability__date::before {
+  content: var(--visit-date, "Суббота, 12 декабря");
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px 7px;
+}
+
+.slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.slot:not(:disabled):hover {
+  background: var(--tint);
+  border-color: #c8a482;
+}
+
+.slot__time {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.slot__status {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 13px;
+}
+
+.slot--busy {
+  background: var(--cream);
+  color: var(--subdued);
+  cursor: not-allowed;
+}
+
+.visit-summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 33px;
+  padding-inline: 8px;
+  margin: 24px 0 0;
+  background: var(--tint);
+  color: var(--umber);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.visit-summary .icon {
+  width: 17px;
+  height: 17px;
+  color: var(--bronze);
+}
+
+.visit-summary__time::before {
+  content: var(--visit-time, "14:00");
+}
+
+.empty-day {
+  display: none;
+  gap: 11px;
+  min-height: 172px;
+  padding: 16px;
+  margin-top: 25px;
+  background: var(--tint);
+  border-radius: 7px;
+}
+
+.empty-day__icon {
+  flex-shrink: 0;
+  width: 37px;
+  height: 37px;
+  padding: 9px;
+  background: #ebd4b8;
+  color: var(--bronze);
+  border-radius: 50%;
+}
+
+.empty-day__title {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 26px;
+}
+
+.empty-day__hint {
+  margin: 0 0 15px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.schedule:has(.day--full .choice:checked) :is(.slots, .visit-summary, .action--next) {
+  display: none;
+}
+
+.schedule:has(.day--full .choice:checked) :is(.empty-day, .action--blocked) {
+  display: flex;
+}
+
+/* Подписи соответствуют значениям переключателей в HTML. */
+.schedule:has([value="2026-12-05"]:checked) { --visit-date: "Суббота, 5 декабря"; }
+.schedule:has([value="2026-12-06"]:checked) { --visit-date: "Воскресенье, 6 декабря"; }
+.schedule:has([value="2026-12-07"]:checked) { --visit-date: "Понедельник, 7 декабря"; }
+.schedule:has([value="2026-12-08"]:checked) { --visit-date: "Вторник, 8 декабря"; }
+.schedule:has([value="2026-12-09"]:checked) { --visit-date: "Среда, 9 декабря"; }
+.schedule:has([value="2026-12-10"]:checked) { --visit-date: "Четверг, 10 декабря"; }
+.schedule:has([value="2026-12-11"]:checked) { --visit-date: "Пятница, 11 декабря"; }
+.schedule:has([value="2026-12-12"]:checked) { --visit-date: "Суббота, 12 декабря"; }
+.schedule:has([value="2026-12-13"]:checked) { --visit-date: "Воскресенье, 13 декабря"; }
+.schedule:has([value="2026-12-14"]:checked) { --visit-date: "Понедельник, 14 декабря"; }
+.schedule:has([value="2026-12-15"]:checked) { --visit-date: "Вторник, 15 декабря"; }
+.schedule:has([value="2026-12-16"]:checked) { --visit-date: "Среда, 16 декабря"; }
+.schedule:has([value="2026-12-17"]:checked) { --visit-date: "Четверг, 17 декабря"; }
+.schedule:has([value="2026-12-18"]:checked) { --visit-date: "Пятница, 18 декабря"; }
+.schedule:has([value="2026-12-19"]:checked) { --visit-date: "Суббота, 19 декабря"; }
+.schedule:has([value="2026-12-20"]:checked) { --visit-date: "Воскресенье, 20 декабря"; }
+.schedule:has([value="2026-12-21"]:checked) { --visit-date: "Понедельник, 21 декабря"; }
+.schedule:has([value="2026-12-22"]:checked) { --visit-date: "Вторник, 22 декабря"; }
+.schedule:has([value="2026-12-23"]:checked) { --visit-date: "Среда, 23 декабря"; }
+.schedule:has([value="2026-12-24"]:checked) { --visit-date: "Четверг, 24 декабря"; }
+.schedule:has([value="2026-12-25"]:checked) { --visit-date: "Пятница, 25 декабря"; }
+.schedule:has([value="2026-12-26"]:checked) { --visit-date: "Суббота, 26 декабря"; }
+.schedule:has([value="2026-12-27"]:checked) { --visit-date: "Воскресенье, 27 декабря"; }
+.schedule:has([value="2026-12-28"]:checked) { --visit-date: "Понедельник, 28 декабря"; }
+.schedule:has([value="2026-12-29"]:checked) { --visit-date: "Вторник, 29 декабря"; }
+.schedule:has([value="2026-12-30"]:checked) { --visit-date: "Среда, 30 декабря"; }
+.schedule:has([value="2026-12-31"]:checked) { --visit-date: "Четверг, 31 декабря"; }
+
+.schedule:has([value="10:00"]:checked) { --visit-time: "10:00"; }
+.schedule:has([value="12:00"]:checked) { --visit-time: "12:00"; }
+.schedule:has([value="14:00"]:checked) { --visit-time: "14:00"; }
+.schedule:has([value="15:00"]:checked) { --visit-time: "15:00"; }
+.schedule:has([value="16:00"]:checked) { --visit-time: "16:00"; }
+.schedule:has([value="17:00"]:checked) { --visit-time: "17:00"; }
+
+/* Действия под календарём */
+.booking-actions {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 12px;
+  color: var(--ink);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font: 700 15px/21px Manrope, Arial, sans-serif;
+  text-align: center;
+}
+
+.action--back {
+  min-width: 115px;
+  background: transparent;
+}
+
+.action--back:hover {
+  background: var(--tint);
+}
+
+.action--next {
+  justify-content: flex-end;
+  gap: 44px;
+  width: 168px;
+  background: var(--ink);
+  color: var(--white);
+}
+
+.action--next:not(:disabled):hover {
+  background: var(--umber);
+}
+
+.action--blocked {
+  display: none;
+  background: var(--tint);
+  color: var(--subdued);
+  cursor: not-allowed;
+}
+
+.action--light {
+  justify-content: center;
+  min-height: 40px;
+  padding: 5px 14px;
+  background: var(--paper);
+  border-color: var(--line);
+  font-size: 14px;
+}
+
+.action--light:hover {
+  border-color: var(--bronze);
+}
+
+/* Подвал */
+.site-footer__inner {
+  min-height: 184px;
+  padding-block: 31px 18px;
+}
+
+.site-footer__columns {
+  display: grid;
+  grid-template-columns: 395fr 416fr 309fr;
+  align-items: start;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--dark-line);
+}
+
+.site-footer__heading {
+  margin: 0 0 11px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  letter-spacing: 1.45px;
+  text-transform: uppercase;
+}
+
+.site-footer__details {
+  margin: 0;
+  font-size: 15px;
+  font-style: normal;
+  line-height: 22px;
+}
+
+.site-footer__line,
+.site-footer__phone {
+  display: block;
+}
+
+.site-footer__phone {
+  width: max-content;
+  margin-top: 3px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  color: var(--dim);
+}
+
+.site-footer__note {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+@media (max-width: 960px) {
+  .masthead__inner {
+    grid-template-columns: 1fr 2fr auto;
+    gap: 20px;
+  }
+
+  .site-nav__list {
+    padding: 0;
+  }
+
+  .progress__step {
+    gap: 8px;
+    padding-right: 13px;
+  }
+
+  .progress__label {
+    font-size: 13px;
+  }
+
+  .progress__step:not(:last-child)::after {
+    min-width: 5px;
+  }
+
+  .schedule {
+    gap: 20px 16px;
+  }
+
+  .panel {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 740px) {
+  .wrap {
+    width: calc(100% - 32px);
+  }
+
+  .masthead__inner {
+    grid-template-columns: 1fr auto;
+    gap: 10px 14px;
+    padding-block: 12px;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .site-nav__list {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 5px 16px;
+  }
+
+  .progress__list {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .85fr) minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: start;
+    padding-block: 12px;
+  }
+
+  .progress__step {
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+    text-align: center;
+  }
+
+  .progress__step:not(:last-child)::after {
+    display: none;
+  }
+
+  .progress__label {
+    max-width: 100%;
+    font-size: clamp(10px, 2.75vw, 13px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .booking__title {
+    font-size: clamp(30px, 6vw, 43px);
+    line-height: 1.16;
+  }
+
+  .schedule {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    --calendar-gap: 6px;
+    min-height: 0;
+  }
+
+  .site-footer__columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 16px;
+  }
+
+  .brand--footer {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-nav__item,
+  .masthead__phone {
+    font-size: 13px;
+  }
+
+  .brand__word {
+    font-size: 18px;
+  }
+
+  .calendar-key {
+    column-gap: 15px;
+  }
+
+  .site-footer__columns {
+    grid-template-columns: 1fr;
+  }
 }
