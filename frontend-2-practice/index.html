@@ -1,14 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="page">
-      <!-- Перенесите вашу верстку. Удалите статичные данные. Подключите скрипт -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Выбор даты и времени — КОНТУР</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page" id="top">
+  <a class="skip-link" href="#booking">К выбору даты и времени</a>
+
+  <header class="masthead">
+    <div class="wrap masthead__inner">
+      <span class="brand">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M0 0h5v10L15 0h7L11 11l12 13h-7L5 13v11H0z"/>
+        </svg>
+        <span class="brand__word">КОНТУР</span>
+      </span>
+
+      <nav class="site-nav" aria-label="Разделы сайта">
+        <ul class="site-nav__list">
+          <li class="site-nav__item">Услуги</li>
+          <li class="site-nav__item">Мастера</li>
+          <li class="site-nav__item">Отзывы</li>
+          <li class="site-nav__item"><a class="site-nav__link" href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <a class="masthead__phone" href="tel:+74951234567">+7 (495) 123-45-67</a>
     </div>
-  </body>
+  </header>
+
+  <main class="booking" id="booking" tabindex="-1">
+    <nav class="progress" aria-label="Шаги записи">
+      <ol class="wrap progress__list">
+        <li class="progress__step progress__step--done">
+          <span class="progress__badge" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="progress__label">Мастер<span class="visually-hidden">, шаг пройден</span></span>
+        </li>
+        <li class="progress__step progress__step--done">
+          <span class="progress__badge" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="progress__label">Услуга<span class="visually-hidden">, шаг пройден</span></span>
+        </li>
+        <li class="progress__step" aria-current="step">
+          <span class="progress__badge" aria-hidden="true">3</span>
+          <span class="progress__label">Дата и время</span>
+        </li>
+        <li class="progress__step">
+          <span class="progress__badge" aria-hidden="true">4</span>
+          <span class="progress__label">Контакты</span>
+        </li>
+        <li class="progress__step">
+          <span class="progress__badge" aria-hidden="true">5</span>
+          <span class="progress__label">Подтвер&shy;ждение</span>
+        </li>
+      </ol>
+    </nav>
+
+    <div class="wrap booking__inner">
+      <h1 class="booking__title">Выберите дату и время</h1>
+      <p class="booking__intro">Выберите день и подходящее время начала визита.</p>
+
+      <div class="schedule">
+        <section class="panel calendar" aria-labelledby="month-title">
+          <div class="calendar__head">
+            <h2 class="panel__title" id="month-title" aria-live="polite"></h2>
+            <div class="calendar__arrows">
+              <button class="month-arrow" type="button" data-month-offset="-1" aria-label="Предыдущий месяц">
+                <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m11.5 6-4 4 4 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="month-arrow" type="button" data-month-offset="1" aria-label="Следующий месяц">
+                <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m8.5 6 4 4-4 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <ul class="weekdays" aria-hidden="true">
+            <li class="weekday">Пн</li>
+            <li class="weekday">Вт</li>
+            <li class="weekday">Ср</li>
+            <li class="weekday">Чт</li>
+            <li class="weekday">Пт</li>
+            <li class="weekday">Сб</li>
+            <li class="weekday">Вс</li>
+          </ul>
+
+          <div class="calendar__days" role="group" aria-label="Дни месяца"></div>
+
+          <ul class="calendar-key" aria-label="Обозначения дат">
+            <li class="calendar-key__item"><span class="calendar-key__sample calendar-key__sample--selected" aria-hidden="true"></span>Выбранная дата</li>
+            <li class="calendar-key__item"><span class="calendar-key__sample" aria-hidden="true"></span>Нет свободных слотов</li>
+          </ul>
+        </section>
+
+        <section class="panel availability" aria-labelledby="slots-title">
+          <div class="availability__head">
+            <h2 class="panel__title" id="slots-title">Доступное время</h2>
+            <p class="availability__date" aria-live="polite"></p>
+          </div>
+
+          <div class="slots" role="group" aria-label="Начало визита"></div>
+
+          <div class="empty-day" hidden>
+            <svg class="empty-day__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14v12H3zM3 9h14M7 2.5v5m6-5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="empty-day__body">
+              <h3 class="empty-day__title">На этот день всё занято</h3>
+              <p class="empty-day__hint"></p>
+              <button class="action action--light" type="button">
+                <span class="empty-day__action-text"></span>
+                <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="visit-summary" aria-live="polite" aria-atomic="true">
+            <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true" hidden><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="visit-summary__text"></span>
+          </p>
+        </section>
+
+        <div class="booking-actions" aria-label="Кнопки шага">
+          <button class="action action--back" type="button">
+            <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17 10H3m5-5-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Назад
+          </button>
+          <button class="action action--next" type="button" disabled>
+            Далее
+            <svg class="icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="booking-message" role="status"></p>
+      </div>
+      <noscript>Включите JavaScript в браузере, чтобы выбрать дату и время.</noscript>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="wrap site-footer__inner">
+      <div class="site-footer__columns">
+        <a class="brand brand--footer" href="#top" aria-label="КОНТУР, к началу страницы">
+          <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 0h5v10L15 0h7L11 11l12 13h-7L5 13v11H0z"/></svg>
+          <span class="brand__word">КОНТУР</span>
+          <span class="brand__caption">Барбершоп</span>
+        </a>
+        <section class="site-footer__column" aria-labelledby="contact-heading">
+          <h2 class="site-footer__heading" id="contact-heading">Контакты</h2>
+          <address class="site-footer__details">
+            <span class="site-footer__line">Москва, ул. Покровка, 17</span>
+            <a class="site-footer__phone" href="tel:+74951234567">+7 (495) 123-45-67</a>
+          </address>
+        </section>
+        <section class="site-footer__column" aria-labelledby="hours-heading">
+          <h2 class="site-footer__heading" id="hours-heading">Режим работы</h2>
+          <p class="site-footer__details">
+            <span class="site-footer__line">Пн–Пт 10:00–21:00</span>
+            <span class="site-footer__line">Сб–Вс 10:00–19:00</span>
+          </p>
+        </section>
+      </div>
+      <div class="site-footer__meta">
+        <small class="site-footer__note">© 2026 КОНТУР</small>
+        <span class="site-footer__note">Москва</span>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
 </html>
